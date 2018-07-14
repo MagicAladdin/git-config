@@ -1,0 +1,469 @@
+
+[user]
+  name = Sascha Wander
+  email = sascha.wander@gmail.com
+
+# {{{ ghq
+
+[ghq]
+  root = /home/wandsas/repos
+  root = /home/wandsas/go/src
+
+# }}}
+
+# {{{ core
+
+[core]
+  editor = $EDITOR
+  whitespace=fix,space-before-tab,tab-in-indent,trailing-space,cr-at-eol
+  #pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = less -FRSX
+  excludesfile = ~/.gitignore_global
+  attributesfile = ~/.gitattributes
+  untrackedCache = true
+  hooksPath = ~/.git_template/hooks
+
+# }}}
+
+# {{{ init
+
+[init]
+  templatedir = ~/.git_template
+
+# }}}
+
+# {{{ gpg
+
+[gpg]
+  program = gpg
+
+# }}}
+
+# {{{ commit
+
+[commit]
+  #gpgsign = true
+
+# }}}
+
+# {{{ push
+
+[push]
+  default = matching
+  followTags = true
+
+# }}}
+
+# {{{ diff
+
+[diff]
+  # Detect copies as well as renames
+  renames = copies
+  algorithm = histogram
+  tool = vimdiff
+  compactionHeuristic = true
+  colorMoved = zebra
+  mnemonicprefix = true
+
+[difftool]
+  prompt = false
+
+[diff "exif"]
+  textconv = exiftool
+[difftool "vimdiff"]
+  # $BASE $LOCAL $REMOTE $MERGED
+  cmd = $EDITOR -d $LOCAL $REMOTE
+
+# }}}
+
+# {{{ merge
+
+[merge]
+  # https://git-scm.com/docs/git-config#git-config-mergeff
+  # ff = only
+  # Include summaries of merged commits in newly created merge commit messages
+  log = 1000
+  tool = vimdiff
+  # https://git-scm.com/docs/git-config#git-config-mergeconflictStyle
+  conflictstyle = diff3
+  stat = true
+
+[mergetool]
+  keepBackup = false
+  prompt = false
+
+[mergetool "vimdiff"]
+  cmd = $EDITOR -d $LOCAL $REMOTE
+
+# }}}
+
+# {{{ format
+
+[format]
+  numbered = auto
+
+# }}}
+
+# {{{ status
+
+[status]
+  submodulesummary = true
+
+# }}}
+
+# {{{ apply
+
+[apply]
+  whitespace = nowarn
+
+# }}}
+
+# {{{ filter
+
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+
+# convert tabs to spaces
+[filter "spabs"]
+  clean = expand --initial -t 4
+  smudge = expand --initial -t 4
+  required
+
+# }}}
+
+# {{{ tag
+
+[tag]
+  forceSignAnnotated = true
+
+# }}}
+
+# {{{ log
+
+[log]
+  decorate = short
+
+# }}}
+
+# {{{ colors
+
+[color]
+  branch = yes
+  pager  = yes
+  diff   = auto
+  status = auto
+  interactive = always
+  showbranch = auto
+  ui = auto
+
+[color "branch"]
+  current = green
+  local   = yellow
+  remote  = cyan
+
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old  = red
+  new  = green
+
+[color "status"]
+  header    = magenta
+  added     = yellow
+  changed   = green
+  untracked = cyan
+
+[color "interactive"]
+    error = red bold
+
+[color "diff-highlight"]
+  oldNormal = red strike
+  oldHighlight = red 52 strike
+  newNormal = green italic
+  newHighlight = green 22 italic
+
+# }}}
+
+# {{{ pager
+
+[pager]
+  show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+  diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+
+# }}}
+
+# {{{ interactive
+
+[interactive]
+  diffFilter = diff-so-fancy --patch-mode | less --tabs=4 -RFX
+
+# }}}
+
+# {{{ gui
+
+[gui]
+  fontui   = -family terminus -size 9 -weight normal -slant roman -underline 0 -overstrike 0
+  fontdiff = -family terminus -size 9 -weight normal -slant roman -underline 0 -overstrike 0
+  editor = nvim-gtk
+
+# }}}
+
+# {{{ lfs
+
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+
+# }}}
+
+# {{{ rebase
+
+[rebase]
+  autosquash = true
+  instructionFormat = [%cn <%ce> %G?] %s
+
+# }}}
+
+# {{{ sendemail
+
+[sendemail]
+  aliasesfile   = $HOME/.neomutt/aliases
+  aliasfiletype = mutt
+  chainreplyto  = false
+  smtpserver = /usr/bin/msmtp
+
+# }}}
+
+# {{{ url shorthands
+
+#[url "ssh://git@github.com/"]
+#	insteadOf = https://github.com/
+
+[url "ssh://git@github.com/"]
+  insteadOf = gh:
+  pushInsteadOf = github:
+  pushInsteadOf = git://github.com/
+  pushInsteadOf = https://github.com/
+
+[url "git://github.com/"]
+  insteadOf = github:
+
+[url "git@gist.github.com:"]
+  insteadOf = gst:
+  pushInsteadOf = gist:
+  pushInsteadOf = git://gist.github.com/
+
+[url "git://gist.github.com/"]
+  insteadOf = gist:
+
+[url "git@gitlab.com:"]
+    insteadOf = gl:
+    pushInsteadOf = gitlab:
+    pushInsteadOf = git://gitlab.com/
+
+[url "git://gitlab.com/"]
+    insteadOf = gitlab:
+
+[url "git@bitbucket.org:"]
+    insteadOf = bb:
+    pushInsteadOf = bitbucket:
+    pushInsteadOf = git://bitbucket.org/
+
+[url "git://bitbucket.org/"]
+    insteadOf = bitbucket:
+
+# }}}
+
+# {{{ aliases
+
+[alias]
+	a = add --all
+	#############
+	ap = apply
+	as = apply --stat
+	ac = apply --check
+	#############
+	ama = am --abort
+	amr = am --resolved
+	ams = am --skip
+	#############
+	b = branch
+	ba = branch -a
+	bd = branch -d
+	bdd = branch -D
+	br = branch -r
+	bc = rev-parse --abbrev-ref HEAD
+	#############
+	c = commit
+	ca = commit -a
+	cm = commit -m
+	cam = commit -am
+	cem = commit --allow-empty -m
+	cd = commit --amend
+	cad = commit -a --amend
+	ced = commit --allow-empty --amend
+	#############
+	cl = clone
+	cld = clone --depth 1
+	clg = !sh -c 'git clone git://github.com/$1 $(basename $1)' -
+	clgp = !sh -c 'git clone git@github.com:$(git config --get user.username)/$1 $1' -
+	#############
+	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
+	#############
+	d = diff
+	dp = diff --patience
+	dc = diff --cached
+	dk = diff --check
+	dck = diff --cached --check
+	dt = difftool
+	dct = difftool --cached
+	#############
+	f = fetch
+	fo = fetch origin
+	fu = fetch upstream
+	#############
+	fp = format-patch
+	#############
+	fk = fsck
+	#############
+	g = grep -p
+    #############
+  l = log --oneline
+	lg = log --oneline --graph --decorate
+  ll	= log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lll	= log --topo-order --stat --pretty=format:'%C(bold)%C(yellow)Commit:%C(reset) %C(yellow)%H%C(red)%d%n%C(bold)%C(yellow)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)%C(yellow)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+	#############
+	ls = ls-files
+	lsf = !git ls-files | grep -i
+	#############
+	m = merge
+	ma = merge --abort
+	mc = merge --continue
+	ms = merge --skip
+	#############
+	co = checkout
+	cob = checkout -b
+	#############
+	pr = prune -v
+	#############
+	ps = push
+	psf = push -f
+	psu = push -u
+	pst = push --tags
+	#############
+	pso = push origin
+	psao = push --all origin
+	psfo = push -f origin
+	psuo = push -u origin
+	#############
+	psom = push origin master
+	psaom = push --all origin master
+	psfom = push -f origin master
+	psuom = push -u origin master
+	psfoc = !git push -f origin $(git bc)
+	psuoc = !git push -u origin $(git bc)
+	psdc = !git push origin :$(git bc)
+	#############
+	pl = pull
+	pb = pull --rebase
+	#############
+	plo = pull origin
+	pbo = pull --rebase origin
+	plom = pull origin master
+	ploc = !git pull origin $(git bc)
+	pbom = pull --rebase origin master
+	pboc = !git pull --rebase origin $(git bc)
+	#############
+	plu = pull upstream
+	plum = pull upstream master
+	pluc = !git pull upstream $(git bc)
+	pbum = pull --rebase upstream master
+	pbuc = !git pull --rebase upstream $(git bc)
+	#############
+	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase --interactive
+	rbs = rebase --skip
+	#############
+	re = reset
+	rh = reset HEAD
+	reh = reset --hard
+	rem = reset --mixed
+	res = reset --soft
+	rehh = reset --hard HEAD
+	remh = reset --mixed HEAD
+	resh = reset --soft HEAD
+	#############
+	r = remote
+	ra = remote add
+	rr = remote rm
+	rv = remote -v
+	rn = remote rename
+	rp = remote prune
+	rs = remote show
+	rao = remote add origin
+	rau = remote add upstream
+	rro = remote remove origin
+	rru = remote remove upstream
+	rso = remote show origin
+	rsu = remote show upstream
+	rpo = remote prune origin
+	rpu = remote prune upstream
+	#############
+	rmf = rm -f
+	rmrf = rm -r -f
+	#############
+	s = status
+	sb = status -s -b
+	#############
+	sa = stash apply
+	sc = stash clear
+	sd = stash drop
+	sl = stash list
+	sp = stash pop
+	ss = stash save
+	sw = stash show
+	#############
+	t = tag
+	td = tag -d
+	#############
+	w = show
+	wp = show -p
+	wr = show -p --no-color
+	#############
+	svnr = svn rebase
+	svnd = svn dcommit
+	svnl = svn log --oneline --show-commit
+	#############
+	subadd = !sh -c 'git submodule add git://github.com/$1 $2/$(basename $1)' -
+	subup = submodule update --init --recursive
+	subpull = !git submodule foreach git pull --tags origin master
+	#############
+	assume = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed = !git ls -v | grep ^h | cut -c 3-
+	unassumeall = !git assumed | xargs git unassume
+	assumeall = !git status -s | awk {'print $2'} | xargs git assume
+	#############
+	bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
+	release = !sh -c 'git tag v$1 && git pst' -
+	unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
+	aliases = !git config -l | grep alias | cut -c 7-
+	snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
+	bare = !sh -c 'git symbolic-ref HEAD refs/heads/$1 && git rm --cached -r . && git clean -xfd' -
+	whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
+	serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+	#############
+	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+	subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
+	human = name-rev --name-only --refs=refs/heads/*
+
+# }}}
+
+# vim:fenc=utf-8:ft=gitconfig:ts=2:sts=2:sw=2:et:ai:ci:pi:fdm=marker:foldlevel=0:
