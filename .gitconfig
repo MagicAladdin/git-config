@@ -1,13 +1,19 @@
 
+# {{{ user credentials
+
 [user]
   name = Sascha Wander
   email = sascha.wander@gmail.com
 
-# {{{ ghq
+[credential]
+	helper = /home/wandsas/.local/bin/pass-git-helper
 
-[ghq]
-  root = /home/wandsas/repos
-  root = /home/wandsas/go/src
+# }}}
+
+# {{{ hooks
+
+[init]
+  templatedir = ~/.git_template
 
 # }}}
 
@@ -16,8 +22,8 @@
 [core]
   editor = $EDITOR
   whitespace=fix,space-before-tab,tab-in-indent,trailing-space,cr-at-eol
-  #pager = diff-so-fancy | less --tabs=4 -RFX
-  pager = less -FRSX
+  #pager = less -FRSX
+  pager = diff-so-fancy | less --tabs=4 -RFX
   excludesfile = ~/.gitignore_global
   attributesfile = ~/.gitattributes
   untrackedCache = true
@@ -25,24 +31,25 @@
 
 # }}}
 
-# {{{ init
+# {{{ ghq.root
 
-[init]
-  templatedir = ~/.git_template
+[ghq]
+  root = /home/wandsas/repos
+  root = /home/wandsas/go/src
 
 # }}}
 
 # {{{ gpg
 
 [gpg]
-  program = gpg
+  program = /usr/bin/gpg
 
 # }}}
 
-# {{{ commit
+# {{{ commit 
 
 [commit]
-  #gpgsign = true
+  gpgsign = false
 
 # }}}
 
@@ -226,7 +233,7 @@
 
 # }}}
 
-# {{{ sendemail
+# {{{ mail
 
 [sendemail]
   aliasesfile   = $HOME/.neomutt/aliases
@@ -466,4 +473,4 @@
 
 # }}}
 
-# vim:fenc=utf-8:ft=gitconfig:ts=2:sts=2:sw=2:et:ai:ci:pi:fdm=marker:foldlevel=0:
+# vim:fenc=utf-8:ft=gitconfig:ts=2:sts=0:sw=2:et:fdm=marker:foldlevel=0:
