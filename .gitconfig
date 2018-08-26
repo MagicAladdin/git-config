@@ -46,7 +46,7 @@
 
 # }}}
 
-# {{{ commit 
+# {{{ commit
 
 [commit]
   gpgsign = false
@@ -303,7 +303,9 @@
 	ba = branch -a
 	bd = branch -d
 	bdd = branch -D
-	br = branch -r
+  br = branch -r
+  bu = git branch --set-upstream-to=
+  buom = git branch --set-upstream-to=origin/master master
 	bc = rev-parse --abbrev-ref HEAD
 	#############
 	c = commit
@@ -316,9 +318,8 @@
 	ced = commit --allow-empty --amend
 	#############
 	cl = clone
-	cld = clone --depth 1
-	clg = !sh -c 'git clone git://github.com/$1 $(basename $1)' -
-	clgp = !sh -c 'git clone git@github.com:$(git config --get user.username)/$1 $1' -
+  cld = clone --depth 1
+  clr = clone recursive
 	#############
 	cp = cherry-pick
 	cpa = cherry-pick --abort
@@ -379,17 +380,22 @@
 	psdc = !git push origin :$(git bc)
 	#############
 	pl = pull
-	pb = pull --rebase
+	plr = pull --rebase
 	#############
 	plo = pull origin
-	pbo = pull --rebase origin
-	plom = pull origin master
-	ploc = !git pull origin $(git bc)
-	pbom = pull --rebase origin master
+	plro = pull --rebase origin
+  plom = pull origin master
+ plrom = pull --rebase origin master
+  plum = pull upstream master
+ plrum = pull --rebase upstream master
+  plgm = pull github master
+ plrgm = pull --rebase github master
+  plwm = pull wandsas master
+ plrwm = pull --rebase wandsas master
+  ### TODO TESTING
+  ploc = !git pull origin $(git bc)
 	pboc = !git pull --rebase origin $(git bc)
 	#############
-	plu = pull upstream
-	plum = pull upstream master
 	pluc = !git pull upstream $(git bc)
 	pbum = pull --rebase upstream master
 	pbuc = !git pull --rebase upstream $(git bc)
@@ -428,8 +434,8 @@
 	rmf = rm -f
 	rmrf = rm -r -f
 	#############
-	s = status
-	sb = status -s -b
+	st = status
+ stb = status -s -b
 	#############
 	sa = stash apply
 	sc = stash clear
